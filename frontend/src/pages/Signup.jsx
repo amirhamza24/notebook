@@ -130,7 +130,7 @@ export default function Signup() {
       <div className="flex items-center justify-center w-full lg:w-1/2">
         {/* <Form /> */}
 
-        <div className=" lg:shadow-[0_0_50px_0_rgba(0,0,0,0.2)] p-6 w-123 bg-white rounded-lg">
+        <div className=" lg:shadow-[0_0_70px_0_rgba(0,0,0,0.1)] p-6 w-123 bg-white rounded-lg">
           <h2 className="text-2xl font-bold mb-4">
             Create an Notebook Account
           </h2>
