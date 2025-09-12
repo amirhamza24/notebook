@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,7 +12,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log("name", name);
     console.log("email", email);
     console.log("password", password);
@@ -49,6 +50,16 @@ export default function Signup() {
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        { name, email, password }
+      );
+      console.log("api response: ", response);
+    } catch (error) {
+      console.log("error: ", error);
     }
 
     // If everything is ok

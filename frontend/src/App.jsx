@@ -8,4 +8,7 @@ function App() {
   );
 }
 
+// dbPass: h1DzvLGHrIIMlhhR
+// dbUser: ridoykhan7897890_db_user
+
 export default App;
