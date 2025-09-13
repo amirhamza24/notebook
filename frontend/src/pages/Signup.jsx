@@ -80,7 +80,6 @@ export default function Signup() {
       if (response.data.success) {
         toast.success(response.data.message);
         navigate("/login");
-        // proceed with your API call here...
       }
     } catch (error) {
       console.log("error: ", error);
@@ -88,10 +87,6 @@ export default function Signup() {
     } finally {
       setLoading(false); // stop loading
     }
-
-    // If everything is ok
-    // toast.success("Signup successful");
-    // proceed with your API call here...
   };
 
   return (
@@ -169,9 +164,7 @@ export default function Signup() {
         {/* <Form /> */}
 
         <div className=" lg:shadow-[0_0_70px_0_rgba(0,0,0,0.1)] p-6 w-123 bg-white rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">
-            Create an Notebook Account
-          </h2>
+          <h2 className="text-2xl font-bold mb-4">Create Notebook Account</h2>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
