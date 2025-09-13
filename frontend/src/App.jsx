@@ -1,14 +1,23 @@
+import { ToastContainer } from "react-toastify";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="">
-      <Signup />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      {/* <Signup /> */}
+
+      {/* Toast container */}
+      <ToastContainer position="top-center" autoClose={3000} />
+    </BrowserRouter>
   );
 }
-
-// dbPass: h1DzvLGHrIIMlhhR
-// dbUser: ridoykhan7897890_db_user
 
 export default App;

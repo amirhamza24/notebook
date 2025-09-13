@@ -3,6 +3,8 @@ import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,7 +13,24 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [dots, setDots] = useState("");
 
+  // Loading dots
+  useEffect(() => {
+    if (!loading) return;
+
+    let count = 0;
+    const interval = setInterval(() => {
+      count = (count + 1) % 4; // 0 → 1 → 2 → 3 → 0
+      setDots(".".repeat(count));
+    }, 500); // change every 0.5s
+
+    return () => clearInterval(interval);
+  }, [loading]);
+
+  // form submission
   const handleSubmit = async (e) => {
     console.log("name", name);
     console.log("email", email);
@@ -60,10 +79,14 @@ export default function Signup() {
       console.log("api response: ", response);
       if (response.data.success) {
         toast.success(response.data.message);
+        navigate("/login");
         // proceed with your API call here...
       }
     } catch (error) {
       console.log("error: ", error);
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false); // stop loading
     }
 
     // If everything is ok
@@ -238,15 +261,17 @@ export default function Signup() {
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-green-500 via-teal-500 to-blue-500 animate-gradientMove text-white font-semibold py-2 rounded-sm cursor-pointer shadow-md"
+                disabled={loading}
               >
-                Signup
+                {/* Signup */}
+                {loading ? `Signup${dots}` : "Signup"}
               </button>
 
               <p className="text-center mt-2">
                 Already have an account?{" "}
-                <a href="#" className="text-blue-500 hover:underline">
+                <Link className="text-blue-500 hover:underline" to="/login">
                   Login
-                </a>
+                </Link>
               </p>
             </div>
           </form>
@@ -259,7 +284,7 @@ export default function Signup() {
       </div>
 
       {/* Toast container */}
-      <ToastContainer position="top-center" autoClose={3000} />
+      {/* <ToastContainer position="top-center" autoClose={3000} /> */}
     </div>
   );
 }

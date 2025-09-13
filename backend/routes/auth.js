@@ -1,9 +1,11 @@
 import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
+// for registration
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -27,6 +29,41 @@ router.post("/register", async (req, res) => {
     return res
       .status(200)
       .json({ success: true, message: "Account created successfully " });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+});
+
+// for login
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User not found" });
+    }
+
+    const checkPassword = await bcrypt.compare(password, user.password);
+    if (!checkPassword) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, "secretKeyofNoteApp123@#", {
+      expiresIn: "5h",
+    });
+
+    return res.status(200).json({
+      success: true,
+      token,
+      user: { name: user.name },
+      message: "Login successful ",
+    });
   } catch (error) {
     return res
       .status(500)
