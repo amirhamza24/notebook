@@ -58,12 +58,16 @@ export default function Signup() {
         { name, email, password }
       );
       console.log("api response: ", response);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        // proceed with your API call here...
+      }
     } catch (error) {
       console.log("error: ", error);
     }
 
     // If everything is ok
-    toast.success("Signup successful");
+    // toast.success("Signup successful");
     // proceed with your API call here...
   };
 
