@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 
-export default function NoteModal() {
+export default function NoteModal({ onClose }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -31,7 +31,10 @@ export default function NoteModal() {
           />
 
           <div className="flex justify-between items-center mt-4">
-            <button className="text-red-500 border-[1px] border-red-500 px-4 py-2 rounded hover:bg-red-500/10 cursor-pointer font-semibold">
+            <button
+              onClick={onClose}
+              className="text-red-500 border-[1px] border-red-500 px-4 py-2 rounded hover:bg-red-500/10 cursor-pointer font-semibold"
+            >
               Cancel
             </button>
 

@@ -24,7 +24,7 @@ export default function Home() {
         </span>
       </div>
 
-      {isModalOpen && <NoteModal />}
+      {isModalOpen && <NoteModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 }
