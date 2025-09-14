@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuth } from "../context/ContextProvider";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,8 @@ export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [dots, setDots] = useState("");
+
+  const { login } = useAuth();
 
   // Loading dots
   useEffect(() => {
@@ -58,6 +61,7 @@ export default function Login() {
       );
       console.log("api response: ", response);
       if (response.data.success) {
+        login(response.data.user);
         toast.success(response.data.message);
 
         localStorage.setItem("token", response.data.token);
