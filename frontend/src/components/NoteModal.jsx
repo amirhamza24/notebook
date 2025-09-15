@@ -1,12 +1,42 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import { toast } from "react-toastify";
 
-export default function NoteModal({ onClose }) {
+export default function NoteModal({ closeModal, addNote }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  // const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!title.trim()) {
+      toast.error("Please enter a title");
+      return;
+    }
+    if (!description.trim()) {
+      toast.error("Please enter a description");
+      return;
+    }
+
+    addNote(title, description);
+
+    // try {
+    //   const response = await axios.post("http://localhost:5000/api/note/add", {
+    //     title,
+    //     description,
+    //   });
+    //   if (response.data.success) {
+    //     toast.success(response.data.message);
+    //     closeModal();
+    //     navigate("/");
+    //     setTitle("");
+    //     setDescription("");
+    //   }
+    // } catch (error) {
+    //   console.log("error: ", error);
+    //   toast.error(error?.response?.data?.message);
+    // }
   };
 
   return (
@@ -32,7 +62,7 @@ export default function NoteModal({ onClose }) {
 
           <div className="flex justify-between items-center mt-4">
             <button
-              onClick={onClose}
+              onClick={closeModal}
               className="text-red-500 border-[1px] border-red-500 px-4 py-2 rounded hover:bg-red-500/10 cursor-pointer font-semibold"
             >
               Cancel

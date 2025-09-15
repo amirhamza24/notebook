@@ -2,9 +2,41 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { FiPlus } from "react-icons/fi";
 import NoteModal from "../components/NoteModal";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const addNote = async (title, description) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/note/add",
+        {
+          title,
+          description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+        closeModal();
+        // setTitle("");
+        // setDescription("");
+      }
+    } catch (error) {
+      console.log("error: ", error);
+      toast.error(error?.response?.data?.message);
+    }
+  };
 
   return (
     <div className="bg-gray min-h-screen">
@@ -24,7 +56,7 @@ export default function Home() {
         </span>
       </div>
 
-      {isModalOpen && <NoteModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <NoteModal closeModal={closeModal} addNote={addNote} />}
     </div>
   );
 }
