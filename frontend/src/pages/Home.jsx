@@ -26,6 +26,7 @@ export default function Home() {
           },
         }
       );
+      console.log("create note response: ", response);
       if (response.data.success) {
         toast.success(response.data.message);
         closeModal();

@@ -21,8 +21,12 @@ const middleware = async (req, res, next) => {
       return res.status(404).json({ success: false, message: "No User" });
     }
 
-    const newUser = { name: user.name };
+    const newUser = { name: user.name, id: user._id };
     req.user = newUser;
     next();
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Please Login" });
+  }
 };
+
+export default middleware;
