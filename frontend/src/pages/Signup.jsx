@@ -159,7 +159,7 @@ export default function Signup() {
     //   </div>
     // </div>
 
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen font-Montserrat">
       <div className="flex items-center justify-center w-full lg:w-1/2">
         {/* <Form /> */}
 

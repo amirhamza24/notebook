@@ -31,9 +31,14 @@ export default function Navbar() {
 
   return (
     <div>
-      <nav className="bg-gray-800 p-4 text-white flex justify-between items-center">
-        <div className="text-xl font-bold">
-          <Link to="/">Notebook</Link>
+      <nav className="font-Montserrat bg-gray-800 p-4 md:py-4 md:px-8 text-white flex justify-between items-center">
+        <div className="text-4xl font-semibold font-logo tracking-wider">
+          <Link
+            to="/"
+            className="bg-gradient-to-r from-[#4079ff] via-[#40ffaa] to-[#4079ff] bg-clip-text text-transparent animate-gradientLogo"
+          >
+            Notebook
+          </Link>
         </div>
 
         <input

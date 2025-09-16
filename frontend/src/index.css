@@ -67,9 +67,25 @@ button:focus-visible {
   }
 } */
 
+@import url("https://fonts.googleapis.com/css2?family=Asimovian&family=Carter+One&family=Ga+Maamli&family=Kode+Mono:wght@400..700&family=Merienda:wght@300..900&family=Monoton&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Permanent+Marker&family=Press+Start+2P&family=Story+Script&display=swap");
+
 @import "tailwindcss";
 
 @layer utilities {
+  .font-Montserrat {
+    font-family: "Montserrat", sans-serif;
+    /* font-family: "Open Sans", sans-serif; */
+  }
+  .font-logo {
+    /* font-family: "Kode Mono", monospace; */
+    /* font-family: "Permanent Marker", cursive; */
+    /* font-family: "Ga Maamli", sans-serif; */
+    /* font-family: "Press Start 2P", system-ui; */
+    /* font-family: "Merienda", cursive; */
+    /* font-family: "Monoton", sans-serif; */
+    font-family: "Carter One", system-ui;
+  }
+
   @keyframes gradientMove {
     0% {
       background-position: 0% 50%;
@@ -82,5 +98,10 @@ button:focus-visible {
   .animate-gradientMove {
     background-size: 200% 200%;
     animation: gradientMove 3s linear infinite alternate;
+  }
+
+  .animate-gradientLogo {
+    background-size: 200% 200%;
+    animation: gradientMove 2s linear infinite alternate;
   }
 }

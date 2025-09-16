@@ -57,7 +57,7 @@ export default function NoteModal({ closeModal, addNote }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Note Description"
-            className="border-[1px] border-gray-300 p-2 w-full mb-4 focus:outline-none h-32 rounded"
+            className="border-[1px] border-gray-300 p-2 w-full mb-4 focus:outline-none h-32 rounded text-sm"
           />
 
           <div className="flex justify-between items-center mt-4">

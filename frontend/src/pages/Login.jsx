@@ -59,7 +59,7 @@ export default function Login() {
         "http://localhost:5000/api/auth/login",
         { email, password }
       );
-      console.log("api response: ", response);
+      console.log("Login response: ", response);
       if (response.data.success) {
         login(response.data.user);
         toast.success(response.data.message);
@@ -78,7 +78,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen font-Montserrat">
       <div className="hidden relative lg:flex h-full w-1/2 items-center justify-center bg-gray-200">
         <div className="w-60 h-60 bg-gradient-to-tr from-teal-500 to-blue-500 rounded-full animate-spin" />
         <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
