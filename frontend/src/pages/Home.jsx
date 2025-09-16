@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import SingleNoteCard from "../components/SingleNoteCard";
+import { SpinnerDiamond } from "spinners-react";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,9 +71,13 @@ export default function Home() {
       <Navbar />
 
       {loading ? (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-800/50 flex justify-center items-center">
-          <div className="w-60 h-60 bg-gradient-to-tr from-teal-500 to-blue-500 rounded-full animate-spin" />
-        </div>
+        <SpinnerDiamond
+          size={70}
+          thickness={150}
+          speed={136}
+          color="#36ad47"
+          secondaryColor="rgba(0, 0, 0, 0.44)"
+        />
       ) : (
         <div className="px-8 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           {notes.map((note) => {
