@@ -71,6 +71,8 @@ button:focus-visible {
 
 @import "tailwindcss";
 
+@import "./styles/style.css";
+
 @layer utilities {
   .font-Montserrat {
     font-family: "Montserrat", sans-serif;
@@ -103,5 +105,66 @@ button:focus-visible {
   .animate-gradientLogo {
     background-size: 200% 200%;
     animation: gradientMove 2s linear infinite alternate;
+  }
+}
+@layer components {
+  .card {
+    /* margin: 0 auto; */
+    padding: 2em;
+    /* width: 300px; */
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card::after,
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    border-radius: 10px;
+    /* background-image: conic-gradient(
+      from var(--angle),
+      #4079ff,
+      #00ff99,
+      #4079ff
+    ); */
+    background-image: conic-gradient(
+      from var(--angle),
+      #ff4545,
+      #00ff99,
+      #006aff,
+      #ff0095,
+      #ff4545
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    animation: spin 3s linear infinite;
+  }
+
+  .card::before {
+    filter: blur(1.5rem);
+    opacity: 0.5;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
   }
 }
