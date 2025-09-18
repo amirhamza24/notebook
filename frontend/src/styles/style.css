@@ -26,15 +26,15 @@
     #00ff99,
     #4079ff
   ); */
-  background-image: conic-gradient(
+  /* background-image: conic-gradient(
     from var(--angle),
     #ff4545,
     #00ff99,
     #006aff,
     #ff0095,
     #ff4545
-  );
-  /* background-image: conic-gradient(from var(--angle), transparent, blue); */
+  ); */
+  background-image: conic-gradient(from var(--angle), transparent, blue);
   top: 50%;
   left: 50%;
   translate: -50% -50%;
@@ -46,10 +46,25 @@
   border-radius: 10px;
   animation: 3s spin linear infinite;
 }
+
 .card::before {
   filter: blur(10px);
   opacity: 0.5;
 }
+
+.card:hover::after,
+.card:hover::before {
+  /* background-image: conic-gradient(from var(--angle), transparent, blue); */
+  background-image: conic-gradient(
+    from var(--angle),
+    #ff4545,
+    #00ff99,
+    #006aff,
+    #ff0095,
+    #ff4545
+  );
+}
+
 @keyframes spin {
   from {
     --angle: 0deg;
