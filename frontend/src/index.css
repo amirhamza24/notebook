@@ -107,13 +107,14 @@ button:focus-visible {
     animation: gradientMove 2s linear infinite alternate;
   }
 }
+
 @layer components {
   .card {
     /* margin: 0 auto; */
     padding: 2em;
     /* width: 300px; */
     background: #fff;
-    text-align: center;
+    /* text-align: center; */
     border-radius: 10px;
     position: relative;
     z-index: 1;
@@ -132,14 +133,14 @@ button:focus-visible {
       #00ff99,
       #4079ff
     ); */
-    background-image: conic-gradient(
+    /* background-image: conic-gradient(
       from var(--angle),
       #ff4545,
       #00ff99,
       #006aff,
       #ff0095,
       #ff4545
-    );
+    ); */
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;

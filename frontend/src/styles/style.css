@@ -3,7 +3,7 @@
   padding: 2em;
   /* width: 300px; */
   background: #fff;
-  text-align: center;
+  /* text-align: center; */
   border-radius: 10px;
   position: relative;
 }
@@ -34,7 +34,11 @@
     #ff0095,
     #ff4545
   ); */
-  background-image: conic-gradient(from var(--angle), transparent, blue);
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent,
+    var(--border-color)
+  );
   top: 50%;
   left: 50%;
   translate: -50% -50%;
@@ -44,7 +48,7 @@
   mask-composite: exclude;
   padding: 3px;
   border-radius: 10px;
-  animation: 3s spin linear infinite;
+  animation: 3s spin linear infinite, colorChange 9s linear infinite;
 }
 
 .card::before {
@@ -71,5 +75,20 @@
   }
   to {
     --angle: 360deg;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    --border-color: blue;
+  }
+  33% {
+    --border-color: red;
+  }
+  66% {
+    --border-color: green;
+  }
+  100% {
+    --border-color: blue;
   }
 }
