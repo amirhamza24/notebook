@@ -42,6 +42,7 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
+  // create new note
   const addNote = async (title, description) => {
     try {
       const response = await axios.post(
@@ -82,6 +83,7 @@ export default function Home() {
     setIsModalOpen(true);
   };
 
+  // update note
   const editNote = async (id, title, description) => {
     try {
       const response = await axios.put(
@@ -96,13 +98,36 @@ export default function Home() {
           },
         }
       );
-      console.log("create note response: ", response);
+      console.log("update note response: ", response);
       if (response.data.success) {
         toast.success(response.data.message);
         closeModal();
         fetchNotes();
         // setTitle("");
         // setDescription("");
+      }
+    } catch (error) {
+      console.log("error: ", error);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  // delete note
+  const deleteNote = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/note/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("delete note response: ", response);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        closeModal();
+        fetchNotes();
       }
     } catch (error) {
       console.log("error: ", error);
@@ -146,6 +171,7 @@ export default function Home() {
                 bgColor={randomColor}
                 onEdit={onEdit}
                 onView={onView}
+                deleteNote={deleteNote}
               />
             );
           })}

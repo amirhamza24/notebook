@@ -3,7 +3,13 @@ import { FiEdit } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import "../styles/style.css";
 
-export default function SingleNoteCard({ note, bgColor, onEdit, onView }) {
+export default function SingleNoteCard({
+  note,
+  bgColor,
+  onEdit,
+  onView,
+  deleteNote,
+}) {
   console.log("single note card: ", note);
 
   const truncateText = (text, limit) => {
@@ -83,7 +89,13 @@ export default function SingleNoteCard({ note, bgColor, onEdit, onView }) {
 
         {/* Delete Button */}
         <div className="relative group">
-          <button className="text-red-500 cursor-pointer">
+          <button
+            className="text-red-500 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteNote(note._id);
+            }}
+          >
             <FaTrash />
           </button>
           <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">

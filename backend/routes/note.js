@@ -44,17 +44,32 @@ router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const updateNote = await Note.findByIdAndUpdate(id, req.body);
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Note Updated Successfully",
-        updateNote,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Note Updated Successfully",
+      updateNote,
+    });
   } catch (error) {
     return res
       .status(500)
       .json({ success: false, message: "Can't Update Note" });
+  }
+});
+
+// delete single note
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateNote = await Note.findByIdAndDelete(id);
+    return res.status(200).json({
+      success: true,
+      message: "Note Deleted Successfully",
+      updateNote,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Can't Delete Note" });
   }
 });
 
