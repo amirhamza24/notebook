@@ -39,4 +39,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+// update single note
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateNote = await Note.findByIdAndUpdate(id, req.body);
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: "Note Updated Successfully",
+        updateNote,
+      });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Can't Update Note" });
+  }
+});
+
 export default router;

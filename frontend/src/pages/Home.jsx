@@ -12,6 +12,8 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentNote, setCurrentNote] = useState(null);
+  const [isViewOnly, setIsViewOnly] = useState(false);
 
   useEffect(() => {
     fetchNotes();
@@ -35,6 +37,8 @@ export default function Home() {
   };
 
   const closeModal = () => {
+    setCurrentNote(null);
+    setIsViewOnly(false);
     setIsModalOpen(false);
   };
 
@@ -42,6 +46,46 @@ export default function Home() {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/note/add",
+        {
+          title,
+          description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("create note response: ", response);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        closeModal();
+        fetchNotes();
+        // setTitle("");
+        // setDescription("");
+      }
+    } catch (error) {
+      console.log("error: ", error);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const onEdit = (note) => {
+    setCurrentNote(note);
+    setIsViewOnly(false);
+    setIsModalOpen(true);
+  };
+
+  const onView = (note) => {
+    setCurrentNote(note);
+    setIsViewOnly(true); // view-only mode
+    setIsModalOpen(true);
+  };
+
+  const editNote = async (id, title, description) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/note/${id}`,
         {
           title,
           description,
@@ -100,6 +144,8 @@ export default function Home() {
                 key={note._id}
                 note={note}
                 bgColor={randomColor}
+                onEdit={onEdit}
+                onView={onView}
               />
             );
           })}
@@ -120,7 +166,15 @@ export default function Home() {
         </span>
       </div>
 
-      {isModalOpen && <NoteModal closeModal={closeModal} addNote={addNote} />}
+      {isModalOpen && (
+        <NoteModal
+          closeModal={closeModal}
+          addNote={addNote}
+          currentNote={currentNote}
+          editNote={editNote}
+          isViewOnly={isViewOnly}
+        />
+      )}
     </div>
   );
 }
