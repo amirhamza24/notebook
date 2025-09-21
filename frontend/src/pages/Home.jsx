@@ -66,22 +66,42 @@ export default function Home() {
     }
   };
 
+  // background colors for the cards
+  const colors = [
+    "bg-red-100",
+    "bg-blue-100",
+    "bg-green-100",
+    "bg-yellow-100",
+    "bg-purple-100",
+    "bg-pink-100",
+    "bg-orange-100",
+  ];
+
   return (
     <div className="bg-gray min-h-screen font-Montserrat">
       <Navbar />
 
       {loading ? (
-        <SpinnerDiamond
-          size={70}
-          thickness={150}
-          speed={136}
-          color="#36ad47"
-          secondaryColor="rgba(0, 0, 0, 0.44)"
-        />
+        <div className="h-[500px] flex items-center justify-center">
+          <SpinnerDiamond
+            size={70}
+            thickness={150}
+            speed={136}
+            color="#36ad47"
+            secondaryColor="rgba(0, 0, 0, 0.44)"
+          />
+        </div>
       ) : (
         <div className="px-8 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {notes.map((note) => {
-            return <SingleNoteCard key={note._id} note={note} />;
+          {notes.map((note, index) => {
+            const randomColor = colors[index % colors.length]; // cycle colors
+            return (
+              <SingleNoteCard
+                key={note._id}
+                note={note}
+                bgColor={randomColor}
+              />
+            );
           })}
         </div>
       )}
