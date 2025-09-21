@@ -41,25 +41,33 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <input
-          type="text"
-          placeholder="Search Notes"
-          className="bg-gray-600 px-4 py-2 rounded"
-        />
+        {/* Search Bar */}
+        <div className="hidden md:block">
+          <input
+            type="text"
+            placeholder="Search Notes"
+            className="bg-gray-600 px-4 py-2 rounded"
+          />
+        </div>
 
         <div className="relative" ref={dropdownRef}>
           {!user ? (
             <>
-              <Link to="/login" className="bg-blue-500 px-4 py-2 rounded mr-4">
-                Login
-              </Link>
+              <div className="hidden md:flex">
+                <Link
+                  to="/login"
+                  className="bg-blue-500 px-4 py-2 rounded mr-4"
+                >
+                  Login
+                </Link>
 
-              <Link
-                to="/register"
-                className="bg-blue-500 px-4 py-2 rounded mr-4"
-              >
-                Signup
-              </Link>
+                <Link
+                  to="/register"
+                  className="bg-blue-500 px-4 py-2 rounded mr-4"
+                >
+                  Signup
+                </Link>
+              </div>
             </>
           ) : (
             <>

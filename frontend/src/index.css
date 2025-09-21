@@ -111,7 +111,7 @@ button:focus-visible {
 @layer components {
   .card {
     /* margin: 0 auto; */
-    padding: 2em;
+    padding: 16px 2em;
     /* width: 300px; */
     background: #fff;
     /* text-align: center; */
