@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import "../styles/style.css";
+import DeleteModal from "./DeleteModal";
 
 export default function SingleNoteCard({
   note,
@@ -10,6 +11,7 @@ export default function SingleNoteCard({
   onView,
   deleteNote,
 }) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   console.log("single note card: ", note);
 
   const truncateText = (text, limit) => {
@@ -54,55 +56,68 @@ export default function SingleNoteCard({
     //   </div>
     // </div>
 
-    <div
-      className={`${bgColor} p-4 rounded-md border border-gray-200 hover:border-blue-500 hover:shadow-[0_0_70px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out cursor-pointer`}
-      onClick={() => onView(note)}
-    >
-      <div className="h-20">
-        <h2 className="text-xl font-bold">
-          {/* {note.title} */}
-          {truncateText(note.title, 15)}
-        </h2>
-        <p>
-          {/* {note.description} */}
-          {truncateText(note.description, 30)}
-        </p>
-      </div>
-
-      <div className="flex justify-end mt-2 text-lg">
-        {/* Edit Button */}
-        <div className="relative group">
-          <button
-            className="text-blue-500 mr-2 cursor-pointer"
-            // onClick={() => onEdit(note)}
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit(note);
-            }}
-          >
-            <FiEdit />
-          </button>
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">
-            Edit Note
-          </span>
+    <div>
+      <div
+        className={`${bgColor} p-4 rounded-md border border-gray-200 hover:border-blue-500 hover:shadow-[0_0_70px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out cursor-pointer`}
+        onClick={() => onView(note)}
+      >
+        <div className="h-20">
+          <h2 className="text-xl font-bold">
+            {/* {note.title} */}
+            {truncateText(note.title, 15)}
+          </h2>
+          <p>
+            {/* {note.description} */}
+            {truncateText(note.description, 30)}
+          </p>
         </div>
 
-        {/* Delete Button */}
-        <div className="relative group">
-          <button
-            className="text-red-500 cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteNote(note._id);
-            }}
-          >
-            <FaTrash />
-          </button>
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">
-            Delete Note
-          </span>
+        <div className="flex justify-end mt-2 text-lg">
+          {/* Edit Button */}
+          <div className="relative group">
+            <button
+              className="text-blue-500 mr-2 cursor-pointer"
+              // onClick={() => onEdit(note)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(note);
+              }}
+            >
+              <FiEdit />
+            </button>
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">
+              Edit Note
+            </span>
+          </div>
+
+          {/* Delete Button */}
+          <div className="relative group">
+            <button
+              className="text-red-500 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                // deleteNote(note._id);
+                setIsDeleteModalOpen(true);
+              }}
+            >
+              <FaTrash />
+            </button>
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">
+              Delete Note
+            </span>
+          </div>
         </div>
       </div>
+
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={() => {
+          deleteNote(note._id);
+          setIsDeleteModalOpen(false);
+        }}
+        noteTitle={note.title}
+      />
     </div>
   );
 }
