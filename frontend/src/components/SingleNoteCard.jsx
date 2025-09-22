@@ -103,14 +103,19 @@ export default function SingleNoteCard({
             >
               <FaTrash />
             </button>
-            <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">
+            <span className="absolute -top-8 -left-1 -translate-x-1/2 whitespace-nowrap bg-gray-700 text-white text-[10px] rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition">
               Delete Note
             </span>
           </div>
         </div>
       </div>
 
-      <BorderBeam />
+      {/* <BorderBeam /> */}
+      <BorderBeam
+        colorFrom="#9c40ff"
+        colorTo="#ffaa40"
+        className="transition-colors duration-300 group-hover:[--color-from:white] group-hover:[--color-to:white]"
+      />
 
       <DeleteModal
         isOpen={isDeleteModalOpen}
