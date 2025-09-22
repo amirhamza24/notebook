@@ -3,6 +3,7 @@ import { FiEdit } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import "../styles/style.css";
 import DeleteModal from "./DeleteModal";
+import { BorderBeam } from "./ui/border-beam";
 
 export default function SingleNoteCard({
   note,
@@ -56,9 +57,9 @@ export default function SingleNoteCard({
     //   </div>
     // </div>
 
-    <div>
+    <div className="relative">
       <div
-        className={`${bgColor} p-4 rounded-md border border-gray-200 hover:border-blue-500 hover:shadow-[0_0_70px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out cursor-pointer`}
+        className={`${bgColor} p-4 rounded-md border border-gray-200 hover:border-blue-500 hover:shadow-[0_0_70px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out cursor-pointer overflow-hidden`}
         onClick={() => onView(note)}
       >
         <div className="h-20">
@@ -108,6 +109,8 @@ export default function SingleNoteCard({
           </div>
         </div>
       </div>
+
+      <BorderBeam />
 
       <DeleteModal
         isOpen={isDeleteModalOpen}

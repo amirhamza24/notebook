@@ -5,7 +5,7 @@ import { FiLogOut, FiUser } from "react-icons/fi";
 import { useAuth } from "../context/ContextProvider";
 
 export default function Navbar({ setQuery }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [openDropdown, setOpenDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -64,7 +64,7 @@ export default function Navbar({ setQuery }) {
 
                 <Link
                   to="/register"
-                  className="bg-blue-500 px-4 py-2 rounded mr-4"
+                  className="bg-teal-500 px-4 py-2 rounded mr-4"
                 >
                   Signup
                 </Link>
@@ -86,14 +86,14 @@ export default function Navbar({ setQuery }) {
                     {user.name}
                   </div>
                   <div className="w-full border-b-[.5px] border-gray-300 my-0"></div>
-                  <Link
-                    className="flex items-center justify-center h-full"
-                    to="/login"
-                  >
-                    <Button className="text-left px-6 py-2 flex justify-center items-center gap-2">
+                  <div className="flex items-center justify-center h-full">
+                    <Button
+                      className="text-left px-6 py-2 flex justify-center items-center gap-2"
+                      onClick={logout}
+                    >
                       Logout <FiLogOut />
                     </Button>
-                  </Link>
+                  </div>
                 </div>
               )}
             </>

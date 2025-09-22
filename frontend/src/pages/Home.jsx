@@ -34,7 +34,11 @@ export default function Home() {
   const fetchNotes = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:5000/api/note");
+      const { data } = await axios.get("http://localhost:5000/api/note", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log("get notes: ", data);
 
       if (data.success) {
