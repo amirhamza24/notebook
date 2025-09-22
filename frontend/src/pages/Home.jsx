@@ -14,10 +14,22 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [currentNote, setCurrentNote] = useState(null);
   const [isViewOnly, setIsViewOnly] = useState(false);
+  const [filteredNotes, setFilteredNotes] = useState(false);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     fetchNotes();
   }, []);
+
+  useEffect(() => {
+    setFilteredNotes(
+      notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(query.toLowerCase()) ||
+          note.description.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  }, [query, notes]);
 
   const fetchNotes = async () => {
     setLoading(true);
@@ -148,7 +160,7 @@ export default function Home() {
 
   return (
     <div className="bg-gray min-h-screen font-Montserrat">
-      <Navbar />
+      <Navbar setQuery={setQuery} />
 
       {loading ? (
         <div className="h-[500px] flex items-center justify-center">
@@ -162,19 +174,32 @@ export default function Home() {
         </div>
       ) : (
         <div className="px-8 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {notes.map((note, index) => {
-            const randomColor = colors[index % colors.length]; // cycle colors
-            return (
-              <SingleNoteCard
-                key={note._id}
-                note={note}
-                bgColor={randomColor}
-                onEdit={onEdit}
-                onView={onView}
-                deleteNote={deleteNote}
-              />
-            );
-          })}
+          {filteredNotes.length > 0 ? (
+            filteredNotes.map((note, index) => {
+              const randomColor = colors[index % colors.length]; // cycle colors
+              return (
+                <SingleNoteCard
+                  key={note._id}
+                  note={note}
+                  bgColor={randomColor}
+                  onEdit={onEdit}
+                  onView={onView}
+                  deleteNote={deleteNote}
+                />
+              );
+            })
+          ) : (
+            <div className="col-span-3 flex items-center justify-center h-[300px]">
+              <p className="text-gray-700 text-lg font-semibold">
+                No notes found{" "}
+                {query && (
+                  <>
+                    with "<span className="text-red-500">{query}</span>"
+                  </>
+                )}
+              </p>
+            </div>
+          )}
         </div>
       )}
 

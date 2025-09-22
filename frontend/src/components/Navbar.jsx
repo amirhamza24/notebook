@@ -4,7 +4,7 @@ import Button from "./Button";
 import { FiLogOut, FiUser } from "react-icons/fi";
 import { useAuth } from "../context/ContextProvider";
 
-export default function Navbar() {
+export default function Navbar({ setQuery }) {
   const { user } = useAuth();
   const [openDropdown, setOpenDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -47,6 +47,7 @@ export default function Navbar() {
             type="text"
             placeholder="Search Notes"
             className="bg-gray-600 px-4 py-2 rounded"
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
 
