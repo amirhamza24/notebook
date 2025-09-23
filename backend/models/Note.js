@@ -5,6 +5,7 @@ const NoteSchema = new mongoose.Schema({
   description: { type: String, required: true },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
+  // to do: add createdAt and updatedAt later
   // createdAt: { type: Date, default: Date.now },
   // updatedAt: { type: Date, default: Date.now },
 });
